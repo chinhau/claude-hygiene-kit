@@ -9,7 +9,9 @@ be re-verified each major model release. (Last verified: 2026-07.)
   [Fable 5 prompting guidance](https://platform.claude.com/docs) says over-prescriptive prompts
   "cap its quality" and skills for prior models "can degrade output quality". Community version:
   [only 8 of 31 installed skills survived an audit](https://medium.com/data-science-collective/the-8-skills-every-claude-code-setup-needs-in-2026-eb7e72cbf91f);
-  in one audited 54-skill setup, 11 accounted for all usage.
+  in one audited 54-skill setup, 11 accounted for all usage. First-party evidence:
+  [our audit of a 23k-star framework](audits/superclaude-2026-07.md) — 31% of its payload
+  unreachable by any install path, ~4,600 lines removable without losing wired behavior.
 - **Skills under ~500 lines, ideally one screen.** Goal, rationale, boundaries, verification
   hook — not recipes. Unused skill descriptions are context tax charged every turn.
 - **No pressure language.** "CRITICAL: you MUST" style over-triggers the instructed behavior

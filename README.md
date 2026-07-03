@@ -1,9 +1,11 @@
 # Claude Hygiene Kit
 
-**The most popular Claude Code frameworks ship 135 agents and 400+ components. In one audited
-54-skill setup, 43 skills were never used once.** They were context tax — tokens paid on every
-turn, and per Anthropic's own guidance, over-prescriptive scaffolding actively *degrades*
-current models' output.
+**The most popular Claude Code frameworks ship 135 agents and 400+ components. We ran this
+kit's audit against one of them — a 23k-star framework — and found 31% of its shipped payload
+(~3,200 lines, 22 components, including all "7 modes" its own description advertises) is
+unreachable by any install path: [full audit, every finding quoted with file:line](audits/superclaude-2026-07.md).**
+The rest is context tax — tokens paid on every turn, and per Anthropic's own guidance,
+over-prescriptive scaffolding actively *degrades* current models' output.
 
 This kit is the other direction: **9 files, one skill that tells you what to DELETE, and a
 Stop hook that actually blocks bad closes.** Minimal CLAUDE.md, tested enforcement, and a
