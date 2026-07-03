@@ -1,0 +1,17 @@
+<!-- → rename to CLAUDE.md in your project root (the .template suffix keeps Claude Code from loading this placeholder) -->
+# {{PROJECT}} — session guide
+
+{{One-sentence purpose.}}
+
+Behavioral rules live in the global contract (`~/.claude/CLAUDE.md`); this file is repo facts only.
+
+## Commands
+- Run: {{run command}}
+- Verify: `bash checks.sh` — the deterministic check that says "done"; the Stop gate runs it.
+
+## Hard rules
+- {{Constraints a fresh session gets wrong on turn one: build model, never-hand-edit files,
+  data/provenance rules. Delete this section if there are none yet.}}
+
+## Key documents
+- {{Pointers to specs/briefs, if any. Delete if none.}}
