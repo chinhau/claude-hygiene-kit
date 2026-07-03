@@ -1,5 +1,7 @@
 # Claude Hygiene Kit
 
+[![gate self-test](https://github.com/chinhau/claude-hygiene-kit/actions/workflows/test.yml/badge.svg)](https://github.com/chinhau/claude-hygiene-kit/actions/workflows/test.yml) [![freshness](https://github.com/chinhau/claude-hygiene-kit/actions/workflows/freshness.yml/badge.svg)](https://github.com/chinhau/claude-hygiene-kit/actions/workflows/freshness.yml)
+
 **The most popular Claude Code frameworks ship 135 agents and 400+ components. We ran this
 kit's audit against one of them — a 23k-star framework — and found 31% of its shipped payload
 (~3,200 lines, 22 components, including all "7 modes" its own description advertises) is
