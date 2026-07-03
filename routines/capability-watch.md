@@ -1,3 +1,5 @@
+LAST-RUN: (never — updated automatically by each run)
+
 # Capability watch — weekly scheduled routine template
 
 Run weekly. This is the anti-FOMO mechanism: awareness arrives on a schedule, decisions take

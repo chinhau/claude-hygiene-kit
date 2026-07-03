@@ -1,0 +1,29 @@
+name: freshness tripwire
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Mondays 09:00 UTC — a failing run emails the owner
+  workflow_dispatch:
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Evidence links still resolve (404/410/dead only — auth walls pass)
+        run: |
+          fail=0
+          for u in $(grep -hoE 'https?://[^ )>"]+' README.md RECEIPTS.md | sed 's/[.,]$//' | sort -u); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 20 "$u" || echo 000)
+            case "$code" in
+              404|410|000) echo "DEAD ($code): $u"; fail=1 ;;
+            esac
+          done
+          exit $fail
+      - name: Verified-stamp age under 60 days
+        run: |
+          stamp=$(grep -oE 'Last verified: [0-9]{4}-[0-9]{2}' RECEIPTS.md | grep -oE '[0-9]{4}-[0-9]{2}')
+          age=$(( ( $(date +%s) - $(date -d "${stamp}-01" +%s) ) / 86400 ))
+          echo "RECEIPTS last verified ${stamp} (${age} days ago)"
+          if [ "$age" -gt 60 ]; then
+            echo "STALE: re-verify RECEIPTS.md against current docs (run capability-watch), then bump the stamp."
+            exit 1
+          fi
