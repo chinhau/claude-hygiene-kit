@@ -23,8 +23,12 @@ t "red checks -> block decision"  '"block"' '{}'                          'echo 
 t "loop guard -> silence"         ""        '{"stop_hook_active": true}'  'echo boom; exit 1'
 t "huge output -> still blocks"   '"block"' '{}'                          'seq 1 200000; exit 1'
 
-# missing jq -> exit 2 (blocks loudly instead of failing open)
-rc=$(PATH="$(dirname "$(command -v bash)")" bash "$GATE" </dev/null >/dev/null 2>&1; echo $?)
+# missing jq -> exit 2 (blocks loudly instead of failing open).
+# Empty PATH + absolute bash: the gate's jq guard runs before any external command,
+# so builtins carry it to the intended exit 2. (dirname-of-bash is NOT enough — on
+# Ubuntu, jq lives in /usr/bin next to bash.)
+BASH_BIN=$(command -v bash)
+rc=$(PATH="" "$BASH_BIN" "$GATE" </dev/null >/dev/null 2>&1; echo $?)
 if [ "$rc" = "2" ]; then echo "PASS: missing jq -> exit 2"; else echo "FAIL: missing jq (exit $rc, want 2)"; fails=$((fails+1)); fi
 
 if [ -f checks.sh.bak ]; then mv checks.sh.bak checks.sh; else rm -f checks.sh; fi
