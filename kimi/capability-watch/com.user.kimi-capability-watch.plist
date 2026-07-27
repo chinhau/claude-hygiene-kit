@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Install: fill the two {{placeholders}}, then
+     cp to ~/Library/LaunchAgents/ && launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.user.kimi-capability-watch.plist
+     Uninstall: launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.user.kimi-capability-watch.plist -->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.user.kimi-capability-watch</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/bash</string>
+		<string>{{REPO_DIR}}/kimi/capability-watch/run-capability-watch.sh</string>
+	</array>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Weekday</key><integer>1</integer>
+		<key>Hour</key><integer>8</integer>
+		<key>Minute</key><integer>57</integer>
+	</dict>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PATH</key>
+		<string>{{KIMI_BIN_DIR}}:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin</string>
+	</dict>
+	<key>StandardOutPath</key>
+	<string>{{REPO_DIR}}/kimi/capability-watch/reports/launchd.out.log</string>
+	<key>StandardErrorPath</key>
+	<string>{{REPO_DIR}}/kimi/capability-watch/reports/launchd.err.log</string>
+	<key>RunAtLoad</key>
+	<false/>
+</dict>
+</plist>

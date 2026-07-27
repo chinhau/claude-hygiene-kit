@@ -1,4 +1,4 @@
-LAST-RUN: (never — updated automatically by each run)
+LAST-RUN: 2026-07-27
 
 # Capability watch — weekly scheduled routine template
 
@@ -31,3 +31,11 @@ You maintain a Claude Code setup. Once a week:
    (a hand-rolled mechanism now covered natively). Propose the deletion.
 
 Do not install, edit, or enable anything. The report is the deliverable; the human decides.
+
+---
+
+**Kimi Code variant:** the same routine exists as the `/capability-watch` skill
+(`kimi/skills/capability-watch/`), sourced from the Kimi changelog and scheduled by the
+launchd job in `kimi/capability-watch/` (reports committed to `kimi/capability-watch/reports/`).
+Kimi's in-session crons are session-scoped and auto-expire after 7 days — the broken-promise
+pattern; do not use them for this.

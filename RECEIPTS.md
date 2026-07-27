@@ -18,11 +18,16 @@ be re-verified each major model release. (Last verified: 2026-07.)
   (the model over-fires the tool or skill being emphasized) and doesn't improve compliance.
 - **Never embed point-in-time state in durable files** (fixed checkpoint ranges, "already
   fixed, don't re-flag" lists, copied code snippets). They rot silently; point to the living source.
-- **Effort: start at `high` and sweep upward only when the task demonstrably needs it.**
+- **Effort (Claude): start at `high` and sweep upward only when the task demonstrably needs it.**
   `max` is documented as prone to overthinking. Orchestrators high, worker agents cheap — and
   set `model:` explicitly on agent definitions: omitted means
   [`inherit`](https://code.claude.com/docs/en/sub-agents), which silently bills workers at
   orchestrator rates.
+- **Effort (Kimi): the opposite default is deliberate, not drift.** K3 runs at effort `max`
+  (quality-first; under cost/quota pressure drop to `high` before touching the model). Cost
+  relief comes from switching models (`kimi-k2.7-code`, `-highspeed`), not from throttling K3.
+  The Claude evidence above measured Claude models — don't backport it. Kimi's subagent cheap
+  tier (`[secondary_model]`) is experimental and ignored by the interactive TUI as of 0.29.x.
 
 ## Enforcement
 - **Hooks over prose.** A [Stop hook](https://code.claude.com/docs/en/hooks) that runs your

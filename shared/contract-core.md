@@ -1,7 +1,6 @@
-<!-- → copy to ~/.claude/CLAUDE.md (merge if one exists). Fill ALL {{placeholders}} — 3 working-style, 4 in the dated block. Current model names: code.claude.com/docs/en/model-config -->
 # Global working contract
 
-Applies to every project. Project CLAUDE.md files hold repo-specific facts only; behavior lives here.
+Applies to every project. Project {{INSTRUCTION_FILE}} files hold repo-specific facts only; behavior lives here.
 Litmus for every line here and in any project file: would removing it cause a mistake? If not, cut it.
 
 ## Working style  <!-- fill in: yours, not ours -->
@@ -18,12 +17,7 @@ Litmus for every line here and in any project file: would removing it cause a mi
 - Enforcement belongs in hooks and permission rules, not prose. If a rule must never be broken,
   wire it mechanically instead of writing "NEVER".
 
-## Models & effort — dated block, re-verify each major release (current: {{YYYY-MM}})
-- Default: {{model}} at effort {{level}}. Reserve higher effort for capability-critical work.
-- Subagents/workers: {{cheaper tier}}. Set `model:` explicitly on agent definitions — `inherit`
-  silently bills at orchestrator rates.
-- Fallback is automatic: set `fallbackModel: ["{{next-best}}", "default"]` in settings. If the
-  swap engages, update this block's default line. Everything outside this block applies unchanged.
+{{MODELS_BLOCK}}
 
 ## Memory
 - One lesson per file, indexed; update rather than duplicate; delete notes that turn out wrong.

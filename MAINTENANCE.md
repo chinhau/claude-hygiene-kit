@@ -7,7 +7,9 @@ either a deterministic tripwire or agent-prepared; the human only reads one smal
 
 ## Layer 1 — deterministic tripwires (zero human, zero LLM)
 
-- `.github/workflows/test.yml` — the gate's five pipe-tests on every push, Ubuntu + macOS.
+- `.github/workflows/test.yml` — both Stop gates' pipe-tests (Claude + Kimi) on every push,
+  Ubuntu + macOS. Same workflow regenerates the contract templates from
+  `shared/contract-core.md` and fails on any diff — the two harnesses cannot drift apart silently.
 - `.github/workflows/freshness.yml` — weekly: every evidence URL in README/RECEIPTS must still
   resolve, and the RECEIPTS "Last verified" stamp must be under 60 days old. A failure emails
   the owner. **Staleness is a failing test, not a dashboard** — that is all the metric tracking
@@ -15,16 +17,20 @@ either a deterministic tripwire or agent-prepared; the human only reads one smal
 
 ## Layer 2 — one scheduled agent run per week
 
-`routines/capability-watch.md` diffs the official changelog against the setup in use and returns
-ACT / CONSIDER / IGNORE (+ reverse-drift deletions). Scheduling options:
+`claude/routines/capability-watch.md` diffs the official changelog against the setup in use and
+returns ACT / CONSIDER / IGNORE (+ reverse-drift deletions). Scheduling options:
 - **macOS launchd** (durable, local — recommended): a runner script that unsets any stale
-  `ANTHROPIC_API_KEY`, invokes `claude -p "$(cat routines/capability-watch.md)"` with read/write
-  + web tools, and saves a dated report. Verify headless auth once (`claude -p "Reply OK"`)
-  before trusting the schedule.
+  `ANTHROPIC_API_KEY`, invokes `claude -p "$(cat claude/routines/capability-watch.md)"` with
+  read/write + web tools, and saves a dated report. Verify headless auth once
+  (`claude -p "Reply OK"`) before trusting the schedule.
 - `/schedule` cloud routines — only if the config the routine reads is committed to a repo the
   cloud can see.
 - Session-scoped crons (any tool that dies with the session) are NOT maintenance — they're the
-  broken-promise pattern with extra steps.
+  broken-promise pattern with extra steps. (Kimi's in-session crons: session-scoped AND
+  auto-expire after 7 days. Doubly disqualified.)
+- **Kimi Code side:** `kimi/capability-watch/` is the same pattern for Kimi — a launchd job
+  running `kimi -p` over `kimi/skills/capability-watch/SKILL.md`, with dated reports committed
+  to `kimi/capability-watch/reports/` so the L3 read is a git diff.
 
 ## Layer 3 — the human ten minutes
 

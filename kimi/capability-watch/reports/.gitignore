@@ -1,0 +1,2 @@
+# Reports themselves are committed (MAINTENANCE.md L3: read the weekly diff); launchd logs are not.
+*.log

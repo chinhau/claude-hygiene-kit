@@ -9,5 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run gate pipe-tests
-        working-directory: project-template
+        working-directory: claude/project-template
         run: bash .claude/hooks/test-gate.sh
+      - name: Run Kimi gate pipe-tests
+        working-directory: kimi/hooks
+        run: bash test-gate.sh
+      - name: Contract templates in sync with shared/contract-core.md
+        run: scripts/sync-contract.sh >/dev/null && git diff --exit-code -- claude/CLAUDE.md kimi/AGENTS.md.template
