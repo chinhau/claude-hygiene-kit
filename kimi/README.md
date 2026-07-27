@@ -64,4 +64,4 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.user.kimi-capability
 | `checks.sh` | `~/personal_project/checks.sh` | Umbrella dispatcher: runs every sub-project's checks.sh |
 | `skills/new-project/` | `~/.kimi-code/skills/` | Project scaffolder (thin AGENTS.md + checks.sh) |
 | `skills/capability-watch/` | `~/.kimi-code/skills/` | Weekly ACT / CONSIDER / IGNORE triage of the Kimi changelog |
-| `capability-watch/` | launchd | The L2 scheduled run; reports committed under `reports/` |
+| `capability-watch/` + `doctor-live.sh` | launchd | L2 scheduled run + L1 live-wiring tripwire; reports committed under `reports/` |

@@ -1,0 +1,14 @@
+PASS: contract present: /Users/chlim/.kimi-code/AGENTS.md
+PASS: Stop hook wired to existing /Users/chlim/.kimi-code/hooks/gate.sh
+PASS: umbrella checks.sh present at /Users/chlim/personal_project
+PASS: gate blocks from real launch dir (exit 2, failing project named)
+PASS: gate silent on green fixture
+PASS: drift: .kimi-code/hooks/gate.sh matches kit
+PASS: drift: personal_project/checks.sh matches kit
+PASS: drift: .kimi-code/skills/new-project/SKILL.md matches kit
+PASS: drift: .kimi-code/skills/capability-watch/SKILL.md matches kit
+PASS: drift: .kimi-code/skills/harness-audit/SKILL.md matches kit
+PASS: launchd: com.user.kimi-capability-watch loaded
+PASS: launchd: com.chlim.capability-watch loaded
+---
+doctor-live: ALL PASS

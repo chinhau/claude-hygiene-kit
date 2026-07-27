@@ -18,10 +18,16 @@ can see alone. Output is a ranked report (assessment first — do not edit anyth
    the memory directory and its index. Note line counts — they calibrate severity.
 2. **Reality check (highest-value finding).** For every claim a doc makes about machinery —
    "a hook enforces X", "agents live in Y", "run harness Z" — verify the file exists and is
-   wired (`settings.json` for Claude, `[[hooks]]` in `config.toml` for Kimi).
-   Documented-but-nonexistent enforcement is the #1 finding class: it teaches
-   false confidence. Also the reverse: hooks that run but are re-described at length in prose
-   (delete the prose, keep the hook).
+   wired (`settings.json` for Claude, `[[hooks]]` in `config.toml` for Kimi). Existence and
+   wiring are necessary but **not sufficient**: then prove behavior from the context sessions
+   actually launch in. Pipe-test the hook from the real working directory with a failing
+   fixture and assert the block fires. A gate can be wired, tested, and firing on every Stop
+   while its `./checks.sh` lookup resolves to nothing — because the launch convention changed
+   after the gate was built (this kit shipped exactly that: per-project assumption, umbrella
+   launches, total silence). Schedules get the same treatment: a plist on disk is not a loaded
+   job (`launchctl list`). Documented-but-nonexistent enforcement is the #1 finding class: it
+   teaches false confidence. Also the reverse: hooks that run but are re-described at length
+   in prose (delete the prose, keep the hook).
 3. **Staleness.** Model IDs and prices vs the current lineup — check the official model docs
    of whichever vendor the setup pins rather than trusting your own training-data memory of
    model names (which is the exact rot this step hunts); frozen point-in-time state in

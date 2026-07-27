@@ -14,6 +14,14 @@ either a deterministic tripwire or agent-prepared; the human only reads one smal
   resolve, and the RECEIPTS "Last verified" stamp must be under 60 days old. A failure emails
   the owner. **Staleness is a failing test, not a dashboard** — that is all the metric tracking
   this needs. (If published: stars/issues are GitHub's job, don't build anything.)
+- `kimi/doctor-live.sh` — the tripwire CI cannot run, because it tests the live machine, not
+  the repo. From the real launch directory it pipe-tests the installed gate end-to-end (a
+  failing fixture project must block — exit 0 there is the exact signature of the umbrella gap
+  this kit once shipped), checks the umbrella dispatcher exists, live files byte-match the
+  repo, and both launchd jobs are loaded. Runs weekly ahead of the L2 watch; output lands in
+  `reports/doctor-<date>.txt` and a failure appends a red banner to the week's report. Re-run
+  it by hand after any change to launch conventions (launch directory, KIMI_CODE_HOME, hook
+  paths) — integration assumptions rot when conventions change, and unit tests cannot see it.
 
 ## Layer 2 — one scheduled agent run per week
 
